@@ -1,47 +1,36 @@
 /* ─── Work Showcase ─────────────────────────────────────────────────────────── */
-.section {
-  background-color: var(--navy-950);
-  padding-block: var(--space-20);
+/* Dark panel, one stop lighter than Process above it so the two dark sections
+   don't merge into a single slab. The hairline does the rest of the work.
+   Doubled class on purpose: `.panel-dark` in globals.css also sets a
+   background, and both are single-class selectors on this same element, so
+   the winner would otherwise depend on stylesheet order. */
+.section.section {
+  background-color: var(--navy-900);
+  border-top: 1px solid var(--hair);
+  overflow: hidden;
 }
 
-/* ─── Header ────────────────────────────────────────────────────────────────── */
-.header {
-  margin-bottom: var(--space-12);
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--red-300);
-  margin-bottom: var(--space-2);
-  max-width: none;
-}
-
-.heading {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
-  color: var(--bone-50);
-  line-height: 1.1;
-}
-
-/* ─── 2×2 Grid ──────────────────────────────────────────────────────────────── */
+/* ─── Grid ──────────────────────────────────────────────────────────────────── */
+/* auto-fit rather than a fixed 2x2: four 16:9 tiles stacked two-by-two run
+   roughly 850px tall, which overshoots a laptop viewport the moment you click
+   WORK in the nav. One row of four on a wide screen keeps the whole section
+   visible on landing and still reflows to two, then one, on narrow screens. */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--space-4);
 }
 
 /* ─── Individual item ───────────────────────────────────────────────────────── */
+/* Square corners and a hairline frame rather than a rounded card — the hero's
+   CTA is the only rounded thing on the page, which is what keeps it reading
+   as the button. */
 .item {
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
   aspect-ratio: 16 / 9;
   background-color: var(--navy-800);
-  border: 1px solid var(--navy-700);
+  border: 1px solid var(--hair);
 }
 
 .media {
@@ -58,43 +47,73 @@
   display: block;
 }
 
+/* ─── Empty slot ────────────────────────────────────────────────────────────── */
+/* The placeholder state. Dashed and dimmed on purpose: it has to read as "a
+   photo belongs here", never as a finished tile. Delete this block once all
+   four slots carry real photos. */
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 100%;
+  padding: var(--space-4);
+  text-align: center;
+  border: 1px dashed var(--hair);
+  margin: -1px; /* sit the dashed rule on top of the frame, not inside it */
+  color: var(--ink-dim);
+}
+
+.slotIcon {
+  width: 26px;
+  height: 26px;
+  opacity: 0.55;
+  margin-bottom: var(--space-1);
+}
+
+.slotNum {
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+
 /* ─── Label overlay ─────────────────────────────────────────────────────────── */
+/* For filled tiles. Same bottom-weighted scrim as the hero, so type sits on
+   footage the same way in both places. */
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(7, 15, 29, 0.9) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(7, 15, 29, 0.93) 0%, rgba(7, 15, 29, 0.55) 28%, transparent 58%);
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
   justify-content: flex-end;
-  padding: var(--space-6);
+  padding: var(--space-5);
   pointer-events: none;
 }
 
 .label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: var(--bone-100);
+  color: var(--ink);
 }
 
 .spec {
-  font-size: 0.78rem;
-  color: var(--steel-500);
-}
-
-/* ─── Responsive ────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ─── Temporary ─────────────────────────────────────────────────────────────── */
-/* Holds the section open while the content is blanked out. Delete once real
-   work goes back in. */
-.placeholder {
-  min-height: 50vh;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
 }

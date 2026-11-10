@@ -44,10 +44,14 @@
   line-height: 1;
 }
 
+/* Poster face, as in the hero and the stat band — the footer lockup is the
+   last place the brand speaks, so it speaks in the same voice. */
 .wordmarkTop {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-poster);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   color: var(--bone-50);
 }
 
@@ -57,8 +61,8 @@
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--red-300);
-  margin-top: 3px;
+  color: var(--signal-500);
+  margin-top: 5px;
 }
 
 .tagline {
@@ -104,9 +108,9 @@
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--red-300);
+  color: var(--signal-500);
   max-width: none;
 }
 

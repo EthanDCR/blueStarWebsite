@@ -1,65 +1,57 @@
 /* ─── Proof Strip ───────────────────────────────────────────────────────────── */
-/* Light section — alternates from the dark hero above */
+/* Light panel — the first relief after the dark hero and its lit stat band.
+   Background, ink colours and vertical rhythm come from `.panel-light` in
+   globals.css so this section stays locked to the others. */
 .section {
-  background-color: var(--bone-50);
-  min-height: calc(100vh - var(--nav-height));
-  display: flex;
-  align-items: center;
-  padding-block: var(--space-8);
+  /* Nothing section-specific yet; the class is kept as the module's hook so
+     the markup reads the same as every other section. */
+  overflow: hidden;
 }
 
 /* ─── Grid ──────────────────────────────────────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-12);
+  gap: var(--space-10);
 }
 
 /* ─── Item ──────────────────────────────────────────────────────────────────── */
+/* No padding box: the red cap rule and the type carry the card, matching the
+   hero, where only the CTA gets an actual container. */
 .item {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-8);
-  padding-top: var(--space-12);
-  border-top: 2px solid var(--red-500);
-}
-
-/* ─── Number ────────────────────────────────────────────────────────────────── */
-.num {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: var(--red-500);
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--accent);
 }
 
 /* ─── Title ─────────────────────────────────────────────────────────────────── */
+/* Poster face, uppercase — the hero's headline voice at card scale. */
 .title {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--navy-900);
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.1vw, 1.75rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 /* ─── Body ──────────────────────────────────────────────────────────────────── */
 .body {
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   line-height: 1.7;
-  color: var(--steel-500);
+  text-wrap: pretty;
+  color: var(--ink-dim);
   max-width: 38ch;
 }
 
 /* ─── Responsive ────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
     gap: var(--space-8);
-  }
-
-  .item {
-    padding-inline: 0;
   }
 
   .body {

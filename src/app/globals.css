@@ -86,7 +86,11 @@ html {
   /* Prevent layout shift when scrollbar appears */
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + 12px);
+  /* Exactly the collapsed bar's height: an anchored section lands flush
+     under it. The extra 12px that used to be here left a bright sliver of
+     the previous section (the hero's lit stat band, most visibly) showing
+     between the bar and the section you just jumped to. */
+  scroll-padding-top: var(--nav-height);
   overflow-x: clip;
 }
 
@@ -163,4 +167,123 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ─── Section Panels ───────────────────────────────────────────────────────── */
+/* Every body section below the hero is a "panel". The panel sets four ink
+   variables and the header lockup below reads them, so a section switches
+   between the light and dark halves of the palette by swapping ONE class
+   instead of restating a dozen colours in its module. That's what keeps the
+   sections visually matched to each other as copy changes.
+
+   Vertical rhythm is padding, not min-height: a forced 100vh per section left
+   three cards floating in a mostly-empty viewport on a desktop monitor. */
+.panel {
+  --ink: var(--navy-900);
+  --ink-dim: var(--steel-500);
+  --hair: var(--bone-200);
+  --accent: var(--red-500);
+
+  position: relative;
+  /* vh + vw together: a wide-but-short laptop gets the width-driven generosity
+     scaled back by its own height, so landing on a section anchor shows the
+     header AND the first row of content instead of header alone. */
+  padding-block: clamp(3.25rem, 6vh + 2vw, 7rem);
+}
+
+.panel-light {
+  background-color: var(--bone-50);
+  color: var(--navy-900);
+}
+
+/* Mirrors the hero: bone type on near-black navy, hairlines at low alpha, and
+   the brighter signal red that holds up against a dark panel the way flag red
+   doesn't. */
+.panel-dark {
+  --ink: var(--bone-50);
+  --ink-dim: var(--steel-300);
+  --hair: rgba(245, 243, 236, 0.24);
+  --accent: var(--signal-500);
+
+  background-color: var(--navy-950);
+  color: var(--bone-50);
+}
+
+/* ─── Section Header Lockup ────────────────────────────────────────────────── */
+/* The hero's opening lockup, reduced to a reusable unit:
+       eyebrow (tracked mono)  →  full-width hairline  →  poster headline
+   Same order, same tracking, same rule, one step down in scale so the hero
+   still leads the page. */
+.sec-head {
+  margin-bottom: clamp(1.75rem, 3vh + 1.5vw, 3.5rem);
+}
+
+.sec-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+  max-width: none;
+}
+
+.sec-rule {
+  height: 1px;
+  background-color: var(--hair);
+  margin-bottom: var(--space-6);
+  transform-origin: left center;
+}
+
+/* Anton, uppercase, tight — the hero headline's face at section scale. The
+   explicit weight is here because the global h2 rule sets 700 and Anton ships
+   a single 400 weight, which browsers would otherwise synthesise into a
+   smeared faux-bold. */
+.sec-title {
+  font-family: var(--font-poster);
+  font-weight: 400;
+  /* Capped a full step below the hero's headline — it has to stay the loudest
+     type on the page — and held to two lines at laptop width. */
+  font-size: clamp(1.9rem, 3.2vw, 3.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--ink);
+  max-width: 20ch;
+}
+
+/* The tracked mono caption under the big word, with the red dot separator —
+   straight off the hero's "FIELD REPAIR • DENTON, TX" line. */
+.sec-sub {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 1.1vw, 0.85rem);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  max-width: none;
+}
+
+.sec-dot {
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 50%;
+  background-color: var(--accent);
+  margin-inline: var(--space-4);
+}
+
+/* Intro paragraph under a section header */
+.sec-lede {
+  margin-top: var(--space-6);
+  max-width: 58ch;
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+  color: var(--ink-dim);
 }

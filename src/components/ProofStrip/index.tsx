@@ -29,21 +29,53 @@ const POINTS = [
 
 export default function ProofStrip() {
   return (
-    <section id="approach" className={styles.section}>
-      <div className={`container ${styles.grid}`}>
-        {POINTS.map((point, i) => (
+    <section id="approach" className={`panel panel-light ${styles.section}`}>
+      <div className="container-wide">
+
+        {/* Same lockup the hero opens with — eyebrow, hairline, poster
+            headline — one step down in scale. */}
+        <motion.div
+          className="sec-head"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: EASE_OUT }}
+        >
+          <p className="sec-eyebrow">The Approach</p>
           <motion.div
-            key={point.title}
-            className={styles.item}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="sec-rule"
+            aria-hidden="true"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: EASE_OUT, delay: i * 0.13 }}
-          >
-            <h3 className={styles.title}>{point.title}</h3>
-            <p className={styles.body}>{point.body}</p>
-          </motion.div>
-        ))}
+            transition={{ duration: 1, ease: EASE_OUT }}
+          />
+          <h2 className="sec-title">We Bring the Shop to the Job</h2>
+          <p className="sec-sub">
+            Mobile
+            <span className="sec-dot" aria-hidden="true" />
+            Owner-Run
+            <span className="sec-dot" aria-hidden="true" />
+            No Middleman
+          </p>
+        </motion.div>
+
+        <div className={styles.grid}>
+          {POINTS.map((point, i) => (
+            <motion.div
+              key={point.title}
+              className={styles.item}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: EASE_OUT, delay: i * 0.13 }}
+            >
+              <h3 className={styles.title}>{point.title}</h3>
+              <p className={styles.body}>{point.body}</p>
+            </motion.div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

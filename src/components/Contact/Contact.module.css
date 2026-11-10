@@ -1,18 +1,23 @@
 /* ─── Contact ──────────────────────────────────────────────────────────────── */
-/* Light section — alternates from dark Coverage above */
+/* Light panel — the form is the one place on the page that has to be easy to
+   read and fill out, so it gets the bone background. Rhythm and ink come from
+   `.panel-light`. */
 .section {
-  background-color: var(--bone-50);
-  min-height: calc(100vh - var(--nav-height));
-  display: flex;
-  align-items: center;
-  padding-block: var(--space-16);
+  overflow: hidden;
+}
+
+/* The one word that gets the accent, taking the place of the serif italic the
+   heading used to carry — Anton has no italic, and a synthesised one slants a
+   condensed face into mush. */
+.accent {
+  color: var(--accent);
 }
 
 /* ─── Two-column layout ────────────────────────────────────────────────────── */
 .layout {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
-  gap: var(--space-16);
+  gap: clamp(var(--space-10), 6vw, var(--space-16));
   align-items: start;
 }
 
@@ -20,44 +25,61 @@
 .info {
   display: flex;
   flex-direction: column;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--red-500);
-  margin-bottom: var(--space-2);
-  max-width: none;
-}
-
-.heading {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
-  color: var(--navy-900);
-  line-height: 1.1;
-  margin-bottom: var(--space-4);
-}
-
-.heading em {
-  font-style: italic;
-  color: var(--red-700);
+  align-items: flex-start;
 }
 
 .sub {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   line-height: 1.7;
-  color: var(--steel-500);
+  text-wrap: pretty;
+  color: var(--ink-dim);
   max-width: 42ch;
+  margin-bottom: var(--space-8);
+}
+
+/* ─── Call plate ───────────────────────────────────────────────────────────── */
+/* Deliberately identical to the hero's primary CTA: same face, same plate,
+   same radius. The page should only ever have one look for "this is the
+   action". */
+.callCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-8);
+  border-radius: 3px;
+  border: 2px solid var(--red-500);
+  background-color: var(--red-500);
+  color: var(--bone-50);
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
   margin-bottom: var(--space-10);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.callCta:hover,
+.callCta:focus-visible {
+  background-color: var(--red-700);
+  border-color: var(--red-700);
+}
+
+.phoneIcon {
+  width: 18px;
+  height: 18px;
+  flex: none;
 }
 
 /* ─── Contact details ──────────────────────────────────────────────────────── */
 .details {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .detailItem {
@@ -65,20 +87,20 @@
   flex-direction: column;
   gap: var(--space-1);
   padding: var(--space-5) 0;
-  border-top: 1px solid var(--bone-200);
+  border-top: 1px solid var(--hair);
 }
 
 .detailItem:last-child {
-  border-bottom: 1px solid var(--bone-200);
+  border-bottom: 1px solid var(--hair);
 }
 
 .detailLabel {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--steel-500);
+  color: var(--ink-dim);
 }
 
 .detailRow {
@@ -88,9 +110,11 @@
 }
 
 .detailValue {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--navy-900);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink);
   line-height: 1.3;
 }
 
@@ -98,15 +122,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--steel-500);
+  color: var(--ink-dim);
   padding: var(--space-1);
-  border-radius: 4px;
+  border-radius: 3px;
   transition: color var(--duration-fast) var(--ease-out);
   flex-shrink: 0;
 }
 
 .copyBtn:hover {
-  color: var(--red-500);
+  color: var(--accent);
 }
 
 /* ─── Right column: form ───────────────────────────────────────────────────── */
@@ -119,7 +143,7 @@
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
+  gap: var(--space-4);
 }
 
 .field {
@@ -128,25 +152,28 @@
   gap: var(--space-2);
 }
 
+/* Same tracked mono caption the nav and the section sub-lines use */
 .label {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--steel-500);
+  color: var(--ink-dim);
 }
 
 .input,
 .textarea {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--navy-900);
-  background-color: var(--bone-100);
-  border: 1px solid var(--bone-200);
-  border-radius: 2px;
-  padding: var(--space-3) var(--space-4);
-  transition: border-color var(--duration-fast) var(--ease-out);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background-color: transparent;
+  border: 1px solid var(--hair);
+  border-radius: 3px;
+  padding: var(--space-4);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
   outline: none;
 }
 
@@ -157,31 +184,39 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: var(--red-500);
+  border-color: var(--accent);
+  background-color: #fff;
 }
 
 .textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
 }
 
+/* ─── Submit ───────────────────────────────────────────────────────────────── */
+/* Matches the call plate and the hero CTA exactly. */
 .submit {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--bone-50);
   background-color: var(--red-500);
+  border: 2px solid var(--red-500);
   padding: var(--space-4) var(--space-8);
-  border-radius: 2px;
-  transition: background-color var(--duration-base) var(--ease-out);
+  border-radius: 3px;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
   width: 100%;
   margin-top: var(--space-2);
 }
 
-.submit:hover {
+.submit:hover,
+.submit:focus-visible {
   background-color: var(--red-700);
+  border-color: var(--red-700);
 }
 
 /* ─── Success state ────────────────────────────────────────────────────────── */
@@ -190,37 +225,42 @@
   flex-direction: column;
   justify-content: center;
   gap: var(--space-4);
-  padding: var(--space-12) var(--space-8);
-  border-top: 2px solid var(--red-500);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--accent);
 }
 
 .successTitle {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 700;
-  color: var(--navy-900);
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
   max-width: none;
 }
 
 .successBody {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   line-height: 1.7;
-  color: var(--steel-500);
+  color: var(--ink-dim);
 }
 
 /* ─── Responsive ────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .section {
-    min-height: auto;
-    padding-block: var(--space-12);
-  }
-
   .layout {
     grid-template-columns: 1fr;
-    gap: var(--space-10);
   }
 
   .row {
     grid-template-columns: 1fr;
+  }
+
+  .callCta {
+    width: 100%;
+  }
+
+  .sub {
+    max-width: none;
   }
 }

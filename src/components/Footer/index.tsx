@@ -26,7 +26,7 @@ export default function Footer() {
       {/* Flag stripe bookends the page */}
       <div className={styles.stripe} aria-hidden="true" />
 
-      <div className={`container ${styles.inner}`}>
+      <div className={`container-wide ${styles.inner}`}>
         <div className={styles.brandCol}>
           <div className={styles.lockup}>
             <FlagBadge size={34} />
@@ -81,7 +81,7 @@ export default function Footer() {
         ))}
       </div>
 
-      <div className={`container ${styles.legal}`}>
+      <div className={`container-wide ${styles.legal}`}>
         <span>&copy; {YEAR} {site.name}</span>
         <span>
           {site.address.locality}, {site.address.regionName}

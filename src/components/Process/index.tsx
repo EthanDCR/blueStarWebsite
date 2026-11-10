@@ -35,18 +35,35 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className={styles.section}>
-      <div className="container">
+    <section id="process" className={`panel panel-dark ${styles.section}`}>
+      <div className="container-wide">
 
         <motion.div
-          className={styles.header}
+          className="sec-head"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: EASE_OUT }}
         >
-          <p className={styles.eyebrow}>How It Works</p>
-          <h2 className={styles.heading}>Five steps. One crew. Done right.</h2>
+          <p className="sec-eyebrow">How It Works</p>
+          <motion.div
+            className="sec-rule"
+            aria-hidden="true"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 1, ease: EASE_OUT }}
+          />
+          <h2 className="sec-title">Five Steps. One Crew. Done Right.</h2>
+          <p className="sec-sub">
+            Walk It
+            <span className="sec-dot" aria-hidden="true" />
+            Quote It
+            <span className="sec-dot" aria-hidden="true" />
+            Build It
+            <span className="sec-dot" aria-hidden="true" />
+            Stand Behind It
+          </p>
         </motion.div>
 
         <div className={styles.steps}>
