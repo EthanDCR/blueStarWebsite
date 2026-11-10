@@ -1,0 +1,714 @@
+<title>Getting Found in Denton</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ─── Tokens: light ─────────────────────────────────────────────────────
+     Palette is lifted from the site's own design system so this brief reads
+     as the brand. Neutrals are biased blue toward the navy, not flat grey. */
+  :root {
+    --ground:     #f3f1e9;
+    --surface:    #fbfaf5;
+    --surface-2:  #ebe7da;
+    --ink:        #0c1a30;
+    --ink-soft:   #4a5a72;
+    --ink-faint:  #7d8ba1;
+    --line:       #dcd6c6;
+    --line-firm:  #c2bba7;
+    --accent:     #bf0a30;
+    --accent-ink: #8c0620;
+    --accent-wash:#f6e6e8;
+    --ok:         #1d6b4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:     #070f1d;
+      --surface:    #0f1d35;
+      --surface-2:  #16274420;
+      --ink:        #f3f1e9;
+      --ink-soft:   #a3b1c7;
+      --ink-faint:  #6e7f99;
+      --line:       #1d3055;
+      --line-firm:  #2a4471;
+      --accent:     #ef4a5f;
+      --accent-ink: #ff8490;
+      --accent-wash:#2a1220;
+      --ok:         #4fcf9a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:     #070f1d;
+    --surface:    #0f1d35;
+    --surface-2:  #16274420;
+    --ink:        #f3f1e9;
+    --ink-soft:   #a3b1c7;
+    --ink-faint:  #6e7f99;
+    --line:       #1d3055;
+    --line-firm:  #2a4471;
+    --accent:     #ef4a5f;
+    --accent-ink: #ff8490;
+    --accent-wash:#2a1220;
+    --ok:         #4fcf9a;
+  }
+
+  /* Webfonts can't load here, so these are deliberate system stacks that
+     echo the site: a slab-ish serif for display, mono for labels. */
+  :root {
+    --display: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin-inline: auto;
+    padding: clamp(28px, 6vw, 72px) clamp(20px, 5vw, 48px) 96px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(44px, 6vw, 68px);
+  }
+
+  /* ─── Masthead ──────────────────────────────────────────────────────── */
+  .mast { display: flex; flex-direction: column; gap: 14px; }
+
+  .flagrule {
+    display: flex; height: 5px; width: 120px; border-radius: 1px; overflow: hidden;
+  }
+  .flagrule i { flex: 1; }
+  .flagrule i:nth-child(1) { background: #13264a; }
+  .flagrule i:nth-child(2) { background: #f3f1e9; }
+  .flagrule i:nth-child(3) { background: var(--accent); }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 2.9rem);
+    line-height: 1.1;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+
+  /* ─── Section scaffolding ───────────────────────────────────────────── */
+  section { display: flex; flex-direction: column; gap: 22px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+    line-height: 1.2;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .sectionhead { display: flex; flex-direction: column; gap: 6px; }
+  .sectionhead p {
+    margin: 0; color: var(--ink-soft); max-width: 62ch; font-size: 0.97rem;
+  }
+
+  /* ─── What / Why rows ───────────────────────────────────────────────── */
+  .rows {
+    display: flex; flex-direction: column;
+    border-top: 1px solid var(--line-firm);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: clamp(16px, 3vw, 40px);
+    padding: 20px 0 20px 34px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    cursor: pointer;
+    transition: opacity 140ms ease;
+  }
+  .row:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Tick box — lets you walk the list live and mark things off */
+  .row::before {
+    content: "";
+    position: absolute; left: 0; top: 23px;
+    width: 17px; height: 17px;
+    border: 1.5px solid var(--line-firm);
+    border-radius: 3px;
+    background: var(--surface);
+    transition: background 140ms ease, border-color 140ms ease;
+  }
+  .row::after {
+    content: "";
+    position: absolute; left: 5px; top: 28px;
+    width: 7px; height: 4px;
+    border-left: 2px solid var(--surface);
+    border-bottom: 2px solid var(--surface);
+    transform: rotate(-45deg) scale(0);
+    transition: transform 140ms ease;
+  }
+  .row[data-done="1"]::before { background: var(--ok); border-color: var(--ok); }
+  .row[data-done="1"]::after { transform: rotate(-45deg) scale(1); }
+  .row[data-done="1"] .what { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+  .row[data-done="1"] { opacity: 0.55; }
+
+  .what { display: flex; flex-direction: column; gap: 5px; }
+  .what b {
+    font-size: 1.02rem; font-weight: 650; line-height: 1.35; color: var(--ink);
+  }
+  .what span {
+    font-family: var(--mono); font-size: 0.73rem; color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .why {
+    margin: 0; font-size: 0.94rem; color: var(--ink-soft); line-height: 1.65;
+  }
+  .why em { color: var(--ink); font-style: normal; font-weight: 600; }
+
+  /* ─── Search anatomy diagram ────────────────────────────────────────── */
+  .serp {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: clamp(14px, 2.5vw, 28px);
+    align-items: start;
+  }
+  .screen {
+    background: var(--surface);
+    border: 1px solid var(--line-firm);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.82rem;
+  }
+  .searchbar {
+    display: flex; align-items: center; gap: 9px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.78rem; color: var(--ink-soft);
+  }
+  .searchbar b { color: var(--ink); font-weight: 500; }
+  .band { padding: 13px 14px; border-bottom: 1px solid var(--line); }
+  .band:last-child { border-bottom: 0; }
+  .band-label {
+    font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px;
+  }
+  .band.hot { background: var(--accent-wash); }
+  .band.hot .band-label { color: var(--accent); }
+  .fakeline { height: 7px; border-radius: 2px; background: var(--surface-2); margin-bottom: 6px; }
+  .fakeline.w70 { width: 70%; } .fakeline.w45 { width: 45%; } .fakeline.w85 { width: 85%; }
+  .pin {
+    display: flex; align-items: center; gap: 8px; padding: 5px 0;
+    font-size: 0.8rem; color: var(--ink);
+  }
+  .pin i {
+    width: 15px; height: 15px; flex: none; border-radius: 50%;
+    background: var(--accent); color: #fff; font-style: normal;
+    font-size: 0.6rem; font-weight: 700; display: grid; place-items: center;
+  }
+
+  .notes { display: flex; flex-direction: column; gap: 16px; }
+  .note { display: flex; flex-direction: column; gap: 4px; }
+  .note b { font-size: 0.86rem; }
+  .note p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); line-height: 1.55; }
+  .note.key b { color: var(--accent); }
+
+  /* ─── Timeline — a real sequence, so ordering is honest here ────────── */
+  .timeline {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    border-top: 2px solid var(--line-firm);
+  }
+  .stage { padding: 18px 16px 4px 0; position: relative; }
+  .stage::before {
+    content: ""; position: absolute; top: -2px; left: 0;
+    width: 10px; height: 10px; background: var(--accent);
+    transform: translateY(-4px);
+    border-radius: 50%;
+  }
+  .stage .when {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px;
+  }
+  .stage b { display: block; font-size: 0.95rem; margin-bottom: 5px; }
+  .stage p { margin: 0; font-size: 0.85rem; color: var(--ink-soft); line-height: 1.55; }
+
+  /* ─── Callout ───────────────────────────────────────────────────────── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--line-firm);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 22px clamp(18px, 3vw, 28px);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .callout b { font-family: var(--display); font-size: 1.1rem; }
+  .callout p { margin: 0; color: var(--ink-soft); font-size: 0.94rem; max-width: 66ch; }
+
+  .foot {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-faint);
+    border-top: 1px solid var(--line); padding-top: 18px;
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 1fr; gap: 8px; }
+    .serp { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: 1fr 1fr; }
+    .stage { padding-right: 12px; }
+  }
+  @media (max-width: 430px) {
+    .timeline { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="flagrule"><i></i><i></i><i></i></div>
+    <h1>Getting Found in Denton</h1>
+  </header>
+
+  <!-- ─── How search actually works ─────────────────────────────────── -->
+  <section>
+    <div class="sectionhead">
+      <p class="eyebrow">Start here</p>
+      <h2>What a Denton search actually looks like</h2>
+      <p>
+        Most people picture one list of websites. It isn't — and the difference
+        decides where we spend effort.
+      </p>
+    </div>
+
+    <div class="serp">
+      <div class="screen">
+        <div class="searchbar">🔍 <b>welding denton tx</b></div>
+
+        <div class="band">
+          <div class="band-label">Paid ads</div>
+          <div class="fakeline w70"></div>
+          <div class="fakeline w45"></div>
+        </div>
+
+        <div class="band hot">
+          <div class="band-label">Map results — the top 3</div>
+          <div class="pin"><i>1</i> A Welding Co. · 4.8 ★ (62)</div>
+          <div class="pin"><i>2</i> B Welding &amp; Fab · 4.6 ★ (38)</div>
+          <div class="pin"><i>3</i> C Mobile Welding · 4.9 ★ (24)</div>
+        </div>
+
+        <div class="band">
+          <div class="band-label">Regular website results</div>
+          <div class="fakeline w85"></div>
+          <div class="fakeline w70"></div>
+          <div class="fakeline w45"></div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="note key">
+          <b>The map results are the prize</b>
+          <p>
+            Three businesses get these spots, and most people never scroll past
+            them. They're chosen mainly by your <em>Google Business Profile</em> —
+            how close you are to the searcher, how many reviews you have, and
+            what categories you picked. Not by your website.
+          </p>
+        </div>
+        <div class="note">
+          <b>The website ranks below that</b>
+          <p>
+            It's still worth building — it catches people who scroll, it's where
+            customers decide whether to call you, and it feeds Google information
+            that helps the map listing too.
+          </p>
+        </div>
+        <div class="note">
+          <b>So the order of work is</b>
+          <p>
+            Google Business Profile and reviews first, website second. The
+            website is already underway; the profile needs you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Launch blockers ───────────────────────────────────────────── -->
+  <section>
+    <div class="sectionhead">
+      <p class="eyebrow">Group one</p>
+      <h2>Needed before the site can go live</h2>
+      <p>These are facts only you have. Nothing else can be finalised without them.</p>
+    </div>
+
+    <div class="rows" id="g1">
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Your business name, spelled exactly as you'll file it</b>
+          <span>Blue Star Welding Co. — or Company? Period after Co?</span>
+        </div>
+        <p class="why">
+          Google checks your name against everywhere it appears online. If the
+          site says one thing and Facebook says another, Google isn't confident
+          they're the same business — and <em>you rank lower for it</em>. We pick
+          one spelling and use it everywhere.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Business phone number</b>
+          <span>Ideally a 940 number</span>
+        </div>
+        <p class="why">
+          This shows up directly in search results, so it has to be a number you
+          answer. A local area code is a small free signal that you're actually
+          in Denton.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Who answers that phone, and when</b>
+          <span>And whether you'll take texts</span>
+        </div>
+        <p class="why">
+          <em>More jobs are lost to unanswered phones than to bad websites.</em>
+          If you're under a hood most of the day we should plan for it — a
+          voicemail you return same-day, or putting texting front and centre,
+          which is how most people want to reach a tradesman now.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>A street address Google can verify</b>
+          <span>Your home address is fine</span>
+        </div>
+        <p class="why">
+          Google ranks you partly on how close you are to whoever is searching,
+          so your address decides how far out you show up. <em>It stays
+          private</em> — we hide it and show a service area instead — but Google
+          has to confirm it's real, usually by mailing a postcard.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Do you carry general liability insurance?</b>
+          <span>If yes, what's the coverage limit?</span>
+        </div>
+        <p class="why">
+          Ranch and commercial customers often ask for proof before you set foot
+          on the property. And we can only put "insured" on the site if you
+          actually are — so we need a yes or no, not a guess.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Any welding certifications?</b>
+          <span>AWS, pipe, or none</span>
+        </div>
+        <p class="why">
+          <em>Having none is completely fine</em> for repair and fence work — we
+          just build the site around what's true. What we can't do is claim a
+          certification you don't hold; that's the kind of thing a customer
+          checks when something goes wrong.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>A domain name</b>
+          <span>bluestarweldingco.com, or similar</span>
+        </div>
+        <p class="why">
+          Needs buying before launch, and it should be registered in your name.
+          It also gives you an email on your own domain, which reads a lot more
+          established than a Gmail address on a quote.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Ranking blockers ──────────────────────────────────────────── -->
+  <section>
+    <div class="sectionhead">
+      <p class="eyebrow">Group two</p>
+      <h2>Needed before you'll show up in searches</h2>
+      <p>
+        The site can launch without these. It just won't rank without them.
+      </p>
+    </div>
+
+    <div class="rows" id="g2">
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Check whether a Google listing already exists for you</b>
+          <span>Search your name on Google Maps before we make one</span>
+        </div>
+        <p class="why">
+          Google auto-creates listings from scraped data all the time, and people
+          often have one without knowing. <em>Two listings compete with each
+          other</em> and are a headache to merge later, so we find out first.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Set up and verify the Google Business Profile</b>
+          <span>The single biggest item on this page</span>
+        </div>
+        <p class="why">
+          This is what puts you in the map results. It's free, it takes about
+          thirty minutes, and verification takes a week or two for the postcard
+          to arrive. Everything else is supporting cast.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Which processes can you actually run?</b>
+          <span>Stick, MIG, flux-core, TIG — and aluminium or stainless?</span>
+        </div>
+        <p class="why">
+          This decides what services we list, which is how Google decides what
+          searches to show you for. Listing something you don't really do brings
+          in the wrong calls and eventually a bad review.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Pipe fence and cattle guards — real, or something you'd grow into?</b>
+          <span>Be honest here, it changes the plan</span>
+        </div>
+        <p class="why">
+          These are the searches worth the most money out in Cooke and Wise
+          County, and far fewer people compete for them than for "welding." If
+          you can do them well we aim at them hard.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>What work do you want to turn down?</b>
+          <span>Just as useful as what you want</span>
+        </div>
+        <p class="why">
+          Saying no to a job type sharpens everything. A site that's clearly for
+          ranch and repair work beats a site that vaguely offers everything.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>How many jobs a week can you handle?</b>
+          <span>Realistically, not optimistically</span>
+        </div>
+        <p class="why">
+          There's no point sending you more calls than you can return.
+          <em>Unreturned calls turn into bad reviews</em>, and bad reviews are
+          the one thing that's genuinely hard to undo.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Your rate, minimum charge, and travel fee</b>
+          <span>How far will you actually drive?</span>
+        </div>
+        <p class="why">
+          Putting a minimum on the site filters out the ten-dollar jobs before
+          they reach your phone, and the drive radius tells us which towns to
+          name on the site.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Homework ──────────────────────────────────────────────────── -->
+  <section>
+    <div class="sectionhead">
+      <p class="eyebrow">Group three</p>
+      <h2>Your part, starting today</h2>
+      <p>
+        These two things will do more for your rankings than anything in the
+        code. Neither one can be done for you.
+      </p>
+    </div>
+
+    <div class="rows" id="g3">
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Photograph every single job — before and after</b>
+          <span>Phone camera is completely fine</span>
+        </div>
+        <p class="why">
+          <em>This is the big one.</em> A welding site with no pictures of welding
+          doesn't get called, and Google ranks businesses with more photos higher
+          in the map results. Start today, even on jobs that happen before launch.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Photos of you, the truck, and the rig</b>
+          <span>A few good ones is plenty</span>
+        </div>
+        <p class="why">
+          For a one-man operation you <em>are</em> the trust signal. People hiring
+          someone to come onto their property want to see who's turning up.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>List ten past customers who'd leave you a review</b>
+          <span>Let's start that list on this call</span>
+        </div>
+        <p class="why">
+          Reviews are the main thing separating the top three map results from
+          everyone else. <em>Your first ten to fifteen reviews are worth more
+          than anything I can build.</em> We'll set up a link you can text the
+          day a job finishes.
+        </p>
+      </div>
+
+      <div class="row" tabindex="0">
+        <div class="what">
+          <b>Keep asking, every job, forever</b>
+          <span>Ask in person, then send the link</span>
+        </div>
+        <p class="why">
+          Google weighs recent reviews more heavily than old ones, so this never
+          really stops. A steady trickle beats a burst and then silence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── The name decision ─────────────────────────────────────────── -->
+  <section>
+    <div class="sectionhead">
+      <p class="eyebrow">One real decision</p>
+      <h2>The name is worth five minutes of thought</h2>
+    </div>
+    <div class="callout">
+      <b>"Blue Star Welding Co." vs. something with Denton in it</b>
+      <p>
+        Business names containing the search term — like "Denton Welding Co." —
+        still measurably out-rank brand names for a search like
+        <em>welding denton tx</em>. That's a real, if slightly annoying, fact
+        about how Google works.
+      </p>
+      <p>
+        The trade-off: "Blue Star Welding Co." is the far better brand, it's what
+        goes on the truck, and Google will suspend a profile whose name doesn't
+        match your actual signage — so you can't just pick a keyword name on
+        paper. This is your call, not mine. But it's free to decide now and
+        expensive to change once you've filed the DBA and lettered the truck.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Timeline ──────────────────────────────────────────────────── -->
+  <section>
+    <div class="sectionhead">
+      <p class="eyebrow">Expectations</p>
+      <h2>How long this realistically takes</h2>
+      <p>
+        A brand-new business and a brand-new web address both start from zero
+        with Google. This is the honest curve, not the sales version.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="stage">
+        <span class="when">Weeks 1–2</span>
+        <b>Setup</b>
+        <p>Domain, phone, Google profile submitted, verification postcard on its way.</p>
+      </div>
+      <div class="stage">
+        <span class="when">Weeks 3–8</span>
+        <b>First map results</b>
+        <p>Profile verified and filling with photos and early reviews. You can start appearing on Maps here.</p>
+      </div>
+      <div class="stage">
+        <span class="when">Months 3–6</span>
+        <b>Website shows up</b>
+        <p>Google trusts the site enough to rank it for the easier searches — town names, specific jobs.</p>
+      </div>
+      <div class="stage">
+        <span class="when">Months 6–12</span>
+        <b>Competing properly</b>
+        <p>Challenging shops that have been doing this ten years, on the strength of reviews and real work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Ownership ─────────────────────────────────────────────────── -->
+  <section>
+    <div class="callout">
+      <b>Everything here belongs to you</b>
+      <p>
+        The domain and the Google Business Profile get registered in your name,
+        with me added as a manager so I can do the work. If we ever part ways you
+        keep all of it, and nothing has to be rebuilt. That's how it should be
+        done, and it's worth saying out loud up front.
+      </p>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>Blue Star Welding Co. — Denton, Texas</span>
+    <span>Prepared by Ethan</span>
+  </div>
+</div>
+
+<script>
+  // Tick rows off during the call. Persisted so a refresh doesn't lose progress.
+  (function () {
+    var KEY = "bsw-brief-ticks";
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+
+    document.querySelectorAll(".rows").forEach(function (group) {
+      group.querySelectorAll(".row").forEach(function (row, i) {
+        var id = group.id + ":" + i;
+        if (saved[id]) row.setAttribute("data-done", "1");
+
+        function toggle() {
+          var done = row.getAttribute("data-done") === "1";
+          if (done) { row.removeAttribute("data-done"); delete saved[id]; }
+          else { row.setAttribute("data-done", "1"); saved[id] = 1; }
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+        }
+
+        row.addEventListener("click", toggle);
+        row.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+        });
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,114 @@
+/* ─── Process ───────────────────────────────────────────────────────────────── */
+/* Light section — alternates from dark Services above */
+.section {
+  background-color: var(--bone-50);
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-8);
+}
+
+/* ─── Header ────────────────────────────────────────────────────────────────── */
+.header {
+  margin-bottom: var(--space-10);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red-500);
+  margin-bottom: var(--space-2);
+  max-width: none;
+}
+
+.heading {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  color: var(--navy-900);
+  line-height: 1.1;
+}
+
+/* ─── Steps: horizontal timeline ────────────────────────────────────────────── */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+/* ─── Individual step ───────────────────────────────────────────────────────── */
+.step {
+  padding-right: var(--space-6);
+}
+
+.step:last-child {
+  padding-right: 0;
+}
+
+/* ─── Number + connector ────────────────────────────────────────────────────── */
+.indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--red-500);
+  flex-shrink: 0;
+}
+
+/* Line connecting to the next step */
+.connector {
+  flex: 1;
+  height: 1px;
+  margin-left: var(--space-3);
+  background: linear-gradient(to right, var(--red-500), var(--bone-200));
+}
+
+/* ─── Step text ─────────────────────────────────────────────────────────────── */
+.title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  line-height: 1.2;
+  margin-bottom: var(--space-2);
+}
+
+.body {
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--steel-500);
+  max-width: 24ch;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .section {
+    padding-block: var(--space-12);
+  }
+
+  .steps {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .step {
+    padding-right: 0;
+  }
+
+  .connector {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}

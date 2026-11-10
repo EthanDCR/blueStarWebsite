@@ -1,0 +1,243 @@
+/* ─── Hero ─────────────────────────────────────────────────────────────────── */
+/* Full-viewport panel: the video is the page here, not a texture behind it.
+   The nav is transparent and overlays the top of this section, so the hero
+   owns the whole viewport rather than viewport-minus-nav. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--navy-950);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* ─── Background video ──────────────────────────────────────────────────────── */
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Source is 720x480, so it upscales hard on a wide screen. */
+  pointer-events: none;
+}
+
+/* ─── Scrim ─────────────────────────────────────────────────────────────────── */
+/* Two soft gradients only, top and bottom, leaving the middle of the frame
+   untouched. The mockup barely dims its background image at all — the footage
+   is already dark, so anything heavier just turns it to mud. Raise these
+   alphas if type contrast fails, but check it against a bright spark frame
+   first, not a dark one. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(7, 15, 29, 0.55) 0%, transparent 20%),
+    /* Weighted to the bottom-left, where the copy sits. The footage swings
+       to blown-out sparks mid-loop and white type on that is unreadable;
+       this darkens the corner the text occupies and leaves the rest of the
+       frame alone. */
+    linear-gradient(to top, rgba(7, 15, 29, 0.93) 0%, rgba(7, 15, 29, 0.55) 28%, transparent 58%),
+    linear-gradient(to right, rgba(7, 15, 29, 0.55) 0%, transparent 55%);
+}
+
+/* ─── Sketched star ─────────────────────────────────────────────────────────── */
+/* Deliberately allowed to hang over the stat band — that overlap is what makes
+   it read as drawn on top of the layout rather than placed in it. */
+.roughStar {
+  position: absolute;
+  /* Tucked into the right margin and lifted so it crosses only the top edge
+     of the stat band. It must clear the CTA plate on its left and the last
+     stat's label below it — at full size it covered both. */
+  right: clamp(0.5rem, 2vw, 1.5rem);
+  bottom: var(--space-10);
+  width: clamp(104px, 12vw, 172px);
+  aspect-ratio: 1;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ─── Content ───────────────────────────────────────────────────────────────── */
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-bottom: var(--space-8);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-50);
+  margin-bottom: var(--space-3);
+  max-width: none;
+}
+
+/* Hairline spanning the panel, drawn in from the left on load */
+.rule {
+  height: 1px;
+  background-color: rgba(245, 243, 236, 0.45);
+  margin-bottom: var(--space-6);
+  transform-origin: left center;
+}
+
+/* ─── Headline ──────────────────────────────────────────────────────────────── */
+/* No box. The outlined plate made the headline read as a disabled button and
+   gave it the same weight as the CTA beside it — so neither one looked
+   clickable and nothing led. Type carries itself; only the CTA gets a box. */
+.headline {
+  font-family: var(--font-poster);
+  color: var(--bone-50);
+  text-transform: uppercase;
+  /* Two shadows: a tight one for edge definition against sparks, a wide soft
+     one to lift the whole word off a busy frame. */
+  text-shadow:
+    0 1px 2px rgba(7, 15, 29, 0.9),
+    0 2px 24px rgba(7, 15, 29, 0.7);
+}
+
+.headlineMain {
+  display: block;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* The service line, set as a tracked caption under the big word instead of
+   stacked tight against its right edge. */
+.headlineSub {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1.25vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  color: var(--bone-100);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--signal-500);
+  margin-inline: var(--space-4);
+}
+
+/* ─── Subhead ───────────────────────────────────────────────────────────────── */
+.subhead {
+  margin-top: var(--space-6);
+  /* Wide enough to land on two lines — at 46ch the last word dropped to a
+     third line on its own. */
+  max-width: 58ch;
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+  color: var(--bone-100);
+  text-shadow: 0 1px 10px rgba(7, 15, 29, 0.95);
+}
+
+/* ─── Actions ───────────────────────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-8);
+  border-radius: 3px;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+/* Solid, so one thing on the panel is unambiguously the action to take */
+.ctaPrimary {
+  font-family: var(--font-poster);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  letter-spacing: 0.03em;
+  color: var(--bone-50);
+  background-color: var(--red-500);
+  border-color: var(--red-500);
+}
+
+.ctaPrimary:hover,
+.ctaPrimary:focus-visible {
+  background-color: var(--red-700);
+  border-color: var(--red-700);
+}
+
+/* Outlined, clearly secondary to the quote button */
+.ctaSecondary {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--bone-50);
+  border-color: rgba(245, 243, 236, 0.55);
+  background-color: rgba(7, 15, 29, 0.25);
+  backdrop-filter: blur(2px);
+}
+
+.ctaSecondary:hover,
+.ctaSecondary:focus-visible {
+  border-color: var(--bone-50);
+  background-color: rgba(245, 243, 236, 0.12);
+}
+
+.phoneIcon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Nowhere for it to go at this width without landing on the last stat or
+     the CTA row. It's decorative and aria-hidden, so it just goes. */
+  .roughStar {
+    display: none;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+}
+
+/* Respect a reduced-motion preference: hold on the poster instead of looping */
+@media (prefers-reduced-motion: reduce) {
+  .bgVideo {
+    display: none;
+  }
+
+  .hero {
+    background-image: url("/hero-loop-poster.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}

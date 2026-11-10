@@ -1,0 +1,60 @@
+/* ─── Stat Band ─────────────────────────────────────────────────────────────── */
+/* Sits on the bottom edge of the hero, over the video. The gradient is dark at
+   both ends and lit through the middle — sampled off the mockup, where it
+   reads as a light bar raking across the panel rather than a flat fill. */
+.band {
+  position: relative;
+  z-index: 3;
+  background: linear-gradient(
+    to right,
+    var(--band-edge) 0%,
+    var(--band-core) 52%,
+    var(--band-edge) 100%
+  );
+  padding-block: var(--space-5);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ─── Value ─────────────────────────────────────────────────────────────────── */
+.value {
+  font-family: var(--font-poster);
+  /* Scales down hard on narrow screens because "SAME WEEK" is far wider than
+     "24/7" and the four columns have to stay on one line together. */
+  font-size: clamp(1.6rem, 3.2vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--bone-50);
+}
+
+/* ─── Label ─────────────────────────────────────────────────────────────────── */
+.label {
+  font-family: var(--font-body);
+  font-size: clamp(0.62rem, 0.85vw, 0.8rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--bone-50);
+  max-width: none;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────────── */
+/* Four across needs real width — below this the labels wrap to two lines and
+   the columns start colliding. */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5) var(--space-4);
+  }
+}

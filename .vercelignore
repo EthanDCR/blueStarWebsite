@@ -1,0 +1,12 @@
+# Source media kept in the repo but not served by the site.
+#
+# Looping_carosuel.mov is the original export; the site plays the converted
+# public/hero-loop.mp4. stockwelding1.mp4 is unused footage. blueStarMockup.png
+# is the design reference — it's named in code comments but never loaded, and
+# it has no business being fetchable on a URL handed to a client.
+#
+# Together they're ~41MB of a 43MB public/ directory. Excluding them here
+# leaves the files on disk and just keeps them out of the deployment.
+public/Looping_carosuel.mov
+public/stockwelding1.mp4
+public/blueStarMockup.png

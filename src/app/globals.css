@@ -1,0 +1,166 @@
+/* ─── Design Tokens ────────────────────────────────────────────────────────── */
+:root {
+  /* Navy — dark backgrounds, pulled from the Texas flag's blue field */
+  --navy-950: #070f1d;
+  --navy-900: #0c1a30;
+  --navy-800: #142747;
+  --navy-700: #1f3a63;
+
+  /* Bone — the flag's white bar, used for light section backgrounds */
+  --bone-50:  #f5f3ec;
+  --bone-100: #ebe7dc;
+  --bone-200: #d9d3c4;
+
+  /* Red — flag red, the brand accent: CTAs, rules, decorative marks */
+  --red-300: #ef4a5f;
+  --red-500: #bf0a30;
+  --red-700: #8c0620;
+
+  /* Spark — weld-arc amber, reserved for small highlights only */
+  --spark-400: #ffb347;
+
+  /* ─── Mockup palette (blueStarMockup.png) ───────────────────────────────── */
+  /* Arc orange — the hand-drawn star and other sketched marks. Sampled from
+     the mockup; warmer and louder than the flag red, so keep them apart. */
+  --arc-500: #f05a25;
+  /* The nav's live/contact red — brighter than --red-500 so it holds up
+     against footage rather than a flat navy panel. */
+  --signal-500: #d2242a;
+  /* Stat band: dark at both edges, lit through the middle, like a light bar
+     raking across the panel. */
+  --band-edge: #004573;
+  --band-core: #45a1c7;
+
+  /* Steel — secondary text, dividers */
+  --steel-300: #a8b4c8;
+  --steel-500: #76859c;
+
+  /* ─── Typography Scale ──────────────────────────────────────────────────── */
+  /* Set by layout.tsx via next/font — these are fallback stacks */
+  --font-display: "Bitter", Georgia, "Times New Roman", serif;
+  /* Poster — ultra-condensed heavy display. Headline, CTAs, stat numbers,
+     wordmark. Deliberately the only thing that ever gets set this big. */
+  --font-poster:  "Anton", "Arial Narrow", "Haettenschweiler", sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:    "IBM Plex Mono", "Courier New", monospace;
+
+  /* ─── Spacing Scale ─────────────────────────────────────────────────────── */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+  --space-32: 8rem;      /* 128px */
+
+  /* ─── Layout ────────────────────────────────────────────────────────────── */
+  --content-max: 1200px;
+  --content-pad: clamp(1.25rem, 5vw, 4rem);
+  /* The bar's collapsed height — what it becomes once scrolled, and what
+     scroll-padding and the section min-heights are measured against. The
+     expanded height it uses over the hero lives in Nav.module.css. */
+  --nav-height: 88px;
+
+  /* ─── Motion ────────────────────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+}
+
+/* ─── Reset ────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Prevent layout shift when scrollbar appears */
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 12px);
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--bone-50);
+  color: var(--navy-800);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* ─── Typography Defaults ──────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: inherit;
+}
+
+p {
+  max-width: 68ch;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  background: none;
+}
+
+/* ─── Utility: Content Container ───────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--content-pad);
+}
+
+/* ─── Utility: Full-bleed Container ────────────────────────────────────────── */
+/* Same edge padding as .container but no max-width. The hero, its nav and its
+   stat band run the full width in the mockup — capping them at --content-max
+   leaves big dead margins on a wide laptop and makes the panel read as a card
+   rather than a backdrop. Body sections still use .container. */
+.container-wide {
+  width: 100%;
+  padding-inline: var(--content-pad);
+}
+
+/* ─── Utility: Screen-reader only ──────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
